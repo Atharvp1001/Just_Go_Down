@@ -15,11 +15,20 @@ public class UnderwaterMovement : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform cameraTransform;
 
+    [Header("Breathing System")]
+    [SerializeField] private BreathingSystem breathingSystem;
+
     private Rigidbody rb;
     private Swimming inputActions;
     private Vector3 currentVelocity;
     private float verticalRotation = 0f;
     private float horizontalRotation = 0f;
+
+    public float SwimSpeed
+    {
+        get { return swimSpeed; }
+        set { swimSpeed = value; }
+    }
 
     private void Awake()
     {
@@ -86,8 +95,15 @@ public class UnderwaterMovement : MonoBehaviour
         float verticalInput = inputActions.Underwater.VerticalMove.ReadValue<float>();
 
         Vector3 moveDirection = new Vector3(moveInput.x, verticalInput, moveInput.y);
-        Vector3 targetVelocity = transform.TransformDirection(moveDirection) * swimSpeed;
 
+        // Notify breathing system if player is moving
+        if (breathingSystem != null)
+        {
+            bool isMoving = moveDirection.magnitude > 0.1f;
+            breathingSystem.SetMoving(isMoving);
+        }
+
+        Vector3 targetVelocity = transform.TransformDirection(moveDirection) * swimSpeed;
         currentVelocity = Vector3.Lerp(currentVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
         rb.linearVelocity = currentVelocity;
     }

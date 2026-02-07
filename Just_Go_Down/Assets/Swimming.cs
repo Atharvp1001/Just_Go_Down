@@ -118,6 +118,15 @@ public partial class @Swimming: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Breathe"",
+                    ""type"": ""Button"",
+                    ""id"": ""0882c28b-14a3-408b-9671-ca7a3a9d400a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -219,6 +228,17 @@ public partial class @Swimming: IInputActionCollection2, IDisposable
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c333ef01-122d-4b2e-a313-9efaf50022b7"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Breathe"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -230,6 +250,7 @@ public partial class @Swimming: IInputActionCollection2, IDisposable
         m_Underwater_Move = m_Underwater.FindAction("Move", throwIfNotFound: true);
         m_Underwater_VerticalMove = m_Underwater.FindAction("VerticalMove", throwIfNotFound: true);
         m_Underwater_Look = m_Underwater.FindAction("Look", throwIfNotFound: true);
+        m_Underwater_Breathe = m_Underwater.FindAction("Breathe", throwIfNotFound: true);
     }
 
     ~@Swimming()
@@ -313,6 +334,7 @@ public partial class @Swimming: IInputActionCollection2, IDisposable
     private readonly InputAction m_Underwater_Move;
     private readonly InputAction m_Underwater_VerticalMove;
     private readonly InputAction m_Underwater_Look;
+    private readonly InputAction m_Underwater_Breathe;
     /// <summary>
     /// Provides access to input actions defined in input action map "Underwater".
     /// </summary>
@@ -336,6 +358,10 @@ public partial class @Swimming: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Underwater/Look".
         /// </summary>
         public InputAction @Look => m_Wrapper.m_Underwater_Look;
+        /// <summary>
+        /// Provides access to the underlying input action "Underwater/Breathe".
+        /// </summary>
+        public InputAction @Breathe => m_Wrapper.m_Underwater_Breathe;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -371,6 +397,9 @@ public partial class @Swimming: IInputActionCollection2, IDisposable
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
+            @Breathe.started += instance.OnBreathe;
+            @Breathe.performed += instance.OnBreathe;
+            @Breathe.canceled += instance.OnBreathe;
         }
 
         /// <summary>
@@ -391,6 +420,9 @@ public partial class @Swimming: IInputActionCollection2, IDisposable
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
+            @Breathe.started -= instance.OnBreathe;
+            @Breathe.performed -= instance.OnBreathe;
+            @Breathe.canceled -= instance.OnBreathe;
         }
 
         /// <summary>
@@ -452,5 +484,12 @@ public partial class @Swimming: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnLook(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Breathe" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnBreathe(InputAction.CallbackContext context);
     }
 }
