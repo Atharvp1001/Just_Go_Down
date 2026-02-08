@@ -842,8 +842,8 @@ PlayerSettings:
   editorAssembliesCompatibilityLevel: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: Just_Go_Down
-  metroPackageVersion: 
+  metroPackageName: JustGoDown
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -851,7 +851,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: Just_Go_Down
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: Just_Go_Down
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0
